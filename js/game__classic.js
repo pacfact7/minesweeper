@@ -1,11 +1,13 @@
 let username;
 let password;
 
+// Обработчик события отправки формы регистрации
 document.getElementById("registerForm").addEventListener("submit", function (e) {
    e.preventDefault();
    username = document.getElementById("registerUsername").value;
    password = document.getElementById("registerPassword").value;
 
+   // Отправка данных на сервер для регистрации
    fetch("http://localhost:3000/users", {
       method: "POST",
       headers: {
@@ -16,17 +18,19 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
       .then((response) => response.json())
       .then((data) => {
          console.log(data);
-         // Hide the form after successful registration
+         // Скрыть форму после успешной регистрации
          document.querySelector(".main__data").style.display = "none";
       })
       .catch((error) => console.log("Error:", error));
 });
 
+// Обработчик события отправки формы входа
 document.getElementById("loginForm").addEventListener("submit", function (e) {
    e.preventDefault();
    username = document.getElementById("loginUsername").value;
    password = document.getElementById("loginPassword").value;
 
+   // Отправка данных на сервер для входа
    fetch(`http://localhost:3000/users?username=${username}&password=${password}`)
       .then((response) => {
          if (!response.ok) {
@@ -48,11 +52,11 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
       .catch((error) => console.error("Ошибка:", error));
 });
 
-// Ячейка
+// Генерация ячейки для игрового поля
 const cellSpan = `<span oncontextmenu="return false" onmousedown="clickMouse(event.target, event)" data-flag="false"
                   data-clue="false" class="block"></span>`;
 
-// Получение данных из настроек
+// Получение данных из локального хранилища для настроек
 var setting = JSON.parse(localStorage.getItem("settings"));
 var fieldClass = document.querySelector(".field-area");
 fieldClass.style.gridTemplateRows = `repeat(${setting.area}, 1fr)`;
@@ -60,6 +64,8 @@ fieldClass.style.gridTemplateColumns = `repeat(${setting.area}, 1fr)`;
 for (let i = 0; i < setting.area * setting.area; i++) {
    fieldClass.innerHTML = cellSpan + fieldClass.innerHTML;
 }
+
+// Перемнные для сапера
 let endTimer;
 let seconds = 0;
 let minutes = 0;
@@ -380,6 +386,7 @@ function PauseTimer() {
    hours = 0;
 }
 
+// Перезапуск
 function restar() {
    cells.forEach((elem) => {
       elem.classList.add("hide");
@@ -435,10 +442,10 @@ document.querySelector(".information__lamp").addEventListener("click", () => {
 });
 
 // функции для обновления победы
-// функции для обновления победы
 function updateWins(username, winsCount) {
-   fetch(`http://localhost:3000/wins`, { // Use the specific user endpoint
-      method: "PUT", // Use PUT instead of PATCH
+   fetch(`http://localhost:3000/wins`, {
+      
+      method: "PUT", 
       headers: {
          "Content-Type": "application/json",
       },
@@ -455,7 +462,7 @@ function updateWins(username, winsCount) {
 }
 
 function updateWinsCount(currentUser) {
-   fetch('http://localhost:3000/wins') // Получаем данные о победах
+   fetch("http://localhost:3000/wins") // Получаем данные о победах
       .then((response) => response.json())
       .then((data) => {
          const userWins = data.find((win) => win.username === currentUser);
@@ -464,7 +471,7 @@ function updateWinsCount(currentUser) {
             updateWins(currentUser, currentWinsCount + 1); // Увеличиваем количество побед для текущего пользователя
          } else {
             // Если у пользователя отсутствуют данные о победах, создаем новый объект победы для него
-            fetch('http://localhost:3000/wins', {
+            fetch("http://localhost:3000/wins", {
                method: "POST",
                headers: {
                   "Content-Type": "application/json",
@@ -479,7 +486,7 @@ function updateWinsCount(currentUser) {
                   }
                })
                .catch((error) => console.error("Ошибка:", error));
-          }
+         }
       })
       .catch((error) => console.error("Ошибка:", error));
 }
@@ -495,7 +502,7 @@ function win() {
    bombActive = true;
 
    // Получение имени пользователя через аутентификацию
-   const currentUser = username;  // здесь должно быть получение имени пользователя через аутентификацию
+   const currentUser = username; // здесь должно быть получение имени пользователя через аутентификацию
    updateWinsCount(currentUser);
 }
 
@@ -504,7 +511,6 @@ function gameover() {
    if (loseFirstClick == false) {
       document.querySelector(".field-lose > p").textContent = "Game over";
    } else {
-
       document.querySelector(".field-lose > p").textContent = "Ops.. Bomb..";
    }
    document.querySelectorAll(".block.hide.bomb").forEach((item) => {
