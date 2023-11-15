@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "username": "test",
+      "password": "1",
+      "id": 1
+    },
+    {
+      "username": "makaka",
+      "password": "1",
+      "id": 2
+    },
+    {
+      "username": "betatester",
+      "password": "1",
+      "id": 3
+    }
+  ],
+  "wins": [
+    {
+      "username": "test",
+      "winsCount": 1,
+      "id": 1
+    },
+    {
+      "username": "betatester",
+      "winsCount": 3,
+      "id": 2
+    }
+  ]
+}
