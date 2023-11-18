@@ -14,6 +14,11 @@
       "username": "betatester",
       "password": "1",
       "id": 3
+    },
+    {
+      "username": "dwad",
+      "password": "1",
+      "id": 4
     }
   ],
   "wins": [
@@ -24,8 +29,13 @@
     },
     {
       "username": "betatester",
-      "winsCount": 3,
+      "winsCount": 5,
       "id": 2
+    },
+    {
+      "username": "dwad",
+      "winsCount": 1,
+      "id": 3
     }
   ]
 }
